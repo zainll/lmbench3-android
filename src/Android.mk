@@ -18,6 +18,14 @@ COMMON_CFLAGS := -DANDROID -DHAVE_uint
 COMMON_LIBS := lmbench_lib
 ANDROID_LMBENCH := true
 
+APP_CFLAGS += -fno-jump-tables
+APP_CFLAGS += -Dvalloc=malloc
+APP_CFLAGS += -Iinc
+
+APP_OPTIM := debug
+APP_STRIP_MODE := none 
+LOCAL_STRIP_MODE := none
+
 # Build lmbench_lib
 include $(CLEAR_VARS)
 

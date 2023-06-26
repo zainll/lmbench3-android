@@ -3,4 +3,10 @@
 Android端编译
 ```
 ndk-build NDK_PROJECT_PATH=./lmbench3-android APP_BUILD_SCRIPT=./lmbench3-android/Android.mk
+
+ndk-build NDK_PROJECT_PATH=./lmbench3-android APP_BUILD_SCRIPT=./lmbench3-android/Android.mk APP_PLATFORM=android-31
+
+
+
+
 ```
