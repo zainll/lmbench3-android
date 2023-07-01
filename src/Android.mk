@@ -14,7 +14,8 @@
 
 ifeq ($(BUILD_LMBENCH),true)
 LOCAL_PATH := $(call my-dir)
-COMMON_CFLAGS := -DANDROID -DHAVE_uint
+#COMMON_CFLAGS := -DANDROID -DHAVE_uint -DHAVE_BINDPROCESSOR
+COMMON_CFLAGS := -DANDROID -DHAVE_uint 
 COMMON_LIBS := lmbench_lib
 ANDROID_LMBENCH := true
 
@@ -22,15 +23,30 @@ APP_CFLAGS += -fno-jump-tables
 APP_CFLAGS += -Dvalloc=malloc
 APP_CFLAGS += -Iinc
 
+
 APP_OPTIM := debug
 APP_STRIP_MODE := none 
 LOCAL_STRIP_MODE := none
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := lmbench_kkkk
+LOCAL_SRC_FILES := \
+	lib_timing.c \
+	lib_mem.c \
+	lib_stats.c \
+	lib_debug.c \
+	getopt.c \
+	lib_sched.c
+LOCAL_CFLAGS := -DHAVE_BINDPROCESSOR
+LOCAL_DISABLE_FORMAT_STRING_CHECKS := true
+include $(BUILD_STATIC_LIBRARY)
 
 # Build lmbench_lib
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := lib_unix.c lib_timing.c \
    	lib_mem.c lib_stats.c lib_debug.c getopt.c lib_sched.c valloc.c
+#  	lib_mem.c lib_stats.c lib_debug.c getopt.c lib_sched.c valloc.c
 ifneq ($(ANDROID_LMBENCH),true)
 	LOCAL_SRC_FILES := $(LOCAL_SRC_FILES) lib_tcp.c lib_udp.c
 endif
@@ -38,6 +54,7 @@ LOCAL_C_INCLUDES := $(common_target_c_includes)
 LOCAL_CFLAGS := $(COMMON_CFLAGS) $(common_target_cflags)
 LOCAL_MODULE_TAGS := eng
 LOCAL_MODULE := lmbench_lib
+LOCAL_DISABLE_FORMAT_STRING_CHECKS := true
 
 include $(BUILD_STATIC_LIBRARY)
 

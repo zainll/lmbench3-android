@@ -14,4 +14,11 @@
 
 BUILD_LMBENCH := true
 
+ANDROID_NDK_HOME := /home/zain/tool/android-ndk-r25c-linux/android-ndk-r25c
+ifeq ($(ANDROID_NDK_HOME),)
+  $(error ANDROID_NDK_HOME is not set)
+endif
+
+export PATH := $(ANDROID_NDK_HOME):$(PATH)
+
 include $(call all-subdir-makefiles)
